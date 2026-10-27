@@ -39,6 +39,41 @@ export function buildSearchQuery(question: string) {
   return `${unique.map((term) => `(${term}[Title/Abstract])`).join(" AND ")} AND hasabstract[text]`;
 }
 
+export function toEuropePmcQuery(pubmedQuery: string) {
+  const concepts = [...pubmedQuery.matchAll(/\((.+?)\[Title\/Abstract\]\)/g)].map((match) => match[1]);
+  if (!concepts.length) return "";
+  return `${concepts.map((term) => `TITLE_ABS:\"${term}\"`).join(" AND ")} AND HAS_ABSTRACT:Y`;
+}
+
+type EuropePmcResult = {
+  pmid?: string;
+  title?: string;
+  journalTitle?: string;
+  pubYear?: string;
+  authorString?: string;
+  abstractText?: string;
+};
+
+export function parseEuropePmcResponse(payload: unknown): PubMedArticle[] {
+  const results = (payload as { resultList?: { result?: EuropePmcResult[] } })?.resultList?.result ?? [];
+  return results
+    .filter((result) => result.pmid && result.title && result.abstractText)
+    .slice(0, 5)
+    .map((result) => {
+      const abstract = result.abstractText ?? "";
+      return {
+        pmid: result.pmid ?? "",
+        title: result.title ?? "タイトル情報なし",
+        journal: result.journalTitle ?? "掲載誌不明",
+        year: result.pubYear ?? "年不明",
+        authors: result.authorString ? [result.authorString] : [],
+        abstract,
+        evidence: extractEvidence(abstract),
+        url: `https://pubmed.ncbi.nlm.nih.gov/${result.pmid}/`,
+      };
+    });
+}
+
 function decodeXml(value: string) {
   return value.replace(/<[^>]+>/g, " ").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/\s+/g, " ").trim();
 }
@@ -83,8 +118,8 @@ export function parsePubMedXml(xml: string): PubMedArticle[] {
   }).filter((article) => article.pmid && article.title);
 }
 
-export function makeSummary(articles: PubMedArticle[]) {
+export function makeSummary(articles: PubMedArticle[], source = "PubMed") {
   if (!articles.length) return "質問に対応する抄録付き文献を確認できなかったため、回答を生成しませんでした。";
   const newest = articles.map((article) => Number(article.year)).filter(Number.isFinite).sort((a, b) => b - a)[0];
-  return `PubMedから抄録付き文献を${articles.length}件取得しました${newest ? `（最新${newest}年）` : ""}。下記は抄録中の結論候補を機械的に抽出したものであり、研究デザイン・対象集団・効果量を原文で確認してから解釈してください。`;
+  return `${source}から抄録付き文献を${articles.length}件取得しました${newest ? `（最新${newest}年）` : ""}。下記は抄録中の結論候補を機械的に抽出したものであり、研究デザイン・対象集団・効果量を原文で確認してから解釈してください。`;
 }

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildSearchQuery, extractEvidence, isUnsafeQuestion, makeSummary, parsePubMedXml } from "../lib/pubmed.ts";
+import { buildSearchQuery, extractEvidence, isUnsafeQuestion, makeSummary, parseEuropePmcResponse, parsePubMedXml, toEuropePmcQuery } from "../lib/pubmed.ts";
 
 test("Japanese medical terms become an inspectable PubMed query", () => {
   const query = buildSearchQuery("高血圧に対する減塩の効果は？");
@@ -35,4 +35,29 @@ test("summary refuses to invent evidence", () => assert.match(makeSummary([]), /
 test("chronic kidney disease becomes a PubMed query", () => {
     const query = buildSearchQuery("慢性腎臓病に対する運動の効果は？");
     assert.match(query, /chronic kidney disease\[Title\/Abstract\]/);
+});
+
+test("PubMed queries can be converted for the Europe PMC fallback", () => {
+  const query = toEuropePmcQuery(buildSearchQuery("高血圧に対する減塩の効果は？"));
+  assert.match(query, /TITLE_ABS:\"hypertension\"/);
+  assert.match(query, /TITLE_ABS:\"sodium restriction\"/);
+  assert.match(query, /HAS_ABSTRACT:Y/);
+});
+
+test("Europe PMC results become traceable PubMed records", () => {
+  const [article] = parseEuropePmcResponse({
+    resultList: {
+      result: [{
+        pmid: "12345",
+        title: "A trial",
+        journalTitle: "Test Journal",
+        pubYear: "2025",
+        authorString: "Sato A",
+        abstractText: "In conclusion, treatment improved outcomes.",
+      }],
+    },
+  });
+  assert.equal(article.pmid, "12345");
+  assert.equal(article.url, "https://pubmed.ncbi.nlm.nih.gov/12345/");
+  assert.match(article.evidence, /improved outcomes/);
 });
