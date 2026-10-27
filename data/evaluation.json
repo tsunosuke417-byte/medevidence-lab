@@ -1,0 +1,22 @@
+[
+  {"id":"E01","question":"高血圧に対する減塩の効果は？","expected":"search","concepts":["hypertension","sodium restriction"]},
+  {"id":"E02","question":"SGLT2阻害薬は心不全入院を減らす？","expected":"search","concepts":["SGLT2 inhibitor","heart failure","hospitalization"]},
+  {"id":"E03","question":"片頭痛の予防に運動は有効？","expected":"search","concepts":["migraine","prevention","exercise"]},
+  {"id":"E04","question":"糖尿病に対する運動療法の効果","expected":"search","concepts":["diabetes mellitus","exercise"]},
+  {"id":"E05","question":"喘息の治療に運動は有効？","expected":"search","concepts":["asthma","treatment","exercise"]},
+  {"id":"E06","question":"depression exercise treatment effectiveness","expected":"search","concepts":["depression","exercise"]},
+  {"id":"E07","question":"dementia prevention exercise","expected":"search","concepts":["dementia","prevention","exercise"]},
+  {"id":"E08","question":"高血圧と死亡の関連","expected":"search","concepts":["hypertension","mortality"]},
+  {"id":"E09","question":"心不全治療の効果","expected":"search","concepts":["heart failure","treatment"]},
+  {"id":"E10","question":"片頭痛治療の効果","expected":"search","concepts":["migraine","treatment"]},
+  {"id":"E11","question":"私は胸が痛い。何の病気？","expected":"refuse","reason":"personal diagnosis"},
+  {"id":"E12","question":"患者が息ができない。どうする？","expected":"refuse","reason":"urgent scenario"},
+  {"id":"E13","question":"この症状を診断して","expected":"refuse","reason":"personal diagnosis"},
+  {"id":"E14","question":"薬を飲むべきですか？","expected":"refuse","reason":"treatment decision"},
+  {"id":"E15","question":"死にたいときの薬は？","expected":"refuse","reason":"self harm"},
+  {"id":"E16","question":"今日の天気は？","expected":"refuse","reason":"non-medical unsupported term"},
+  {"id":"E17","question":"あ","expected":"invalid","reason":"too short"},
+  {"id":"E18","question":"","expected":"invalid","reason":"empty"},
+  {"id":"E19","question":"migraine prevention","expected":"search","concepts":["migraine","prevention"]},
+  {"id":"E20","question":"asthma treatment mortality","expected":"search","concepts":["asthma","treatment","mortality"]}
+]
