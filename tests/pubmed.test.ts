@@ -32,3 +32,7 @@ test("PubMed XML is parsed into traceable records", () => {
 });
 
 test("summary refuses to invent evidence", () => assert.match(makeSummary([]), /回答を生成しません/));
+test("chronic kidney disease becomes a PubMed query", () => {
+    const query = buildSearchQuery("慢性腎臓病に対する運動の効果は？");
+    assert.match(query, /chronic kidney disease\[Title\/Abstract\]/);
+});

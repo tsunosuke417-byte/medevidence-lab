@@ -12,6 +12,7 @@ export type PubMedArticle = {
 const MEDICAL_TERMS: Array<[RegExp, string]> = [
   [/高血圧/g, "hypertension"], [/減塩|塩分制限/g, "sodium restriction"],
   [/糖尿病/g, "diabetes mellitus"], [/心不全/g, "heart failure"],
+  [/慢性腎臓病|CKD/gi, "chronic kidney disease"],
   [/SGLT2阻害薬/gi, "SGLT2 inhibitor"], [/片頭痛/g, "migraine"],
   [/運動|運動療法/g, "exercise"], [/予防/g, "prevention"],
   [/治療/g, "treatment"], [/効果|有効/g, "effectiveness"],
