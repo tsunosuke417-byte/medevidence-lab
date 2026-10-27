@@ -26,6 +26,6 @@ AI機能の価値は、回答の流暢さだけでなく、失敗時の振る舞
 
 ## Links
 
-- Live demo: 公開後のURLを記載
-- GitHub: リポジトリ作成後のURLを記載
+- Live demo: https://medevidence-lab-jp.swiftemu69.chatgpt.site
+- Source: `medevidence-lab-source.zip`をGitHubへアップロード後、そのURLを記載
 - Demo video: 録画後のURLを記載

@@ -89,8 +89,8 @@ export default function Home() {
         <div className="nav-links">
           <a href="#how">仕組み</a>
           <a href="#safety">安全設計</a>
-          <a className="nav-cta" href="https://github.com" target="_blank" rel="noreferrer">
-            GitHub <ArrowUpRight size={14} />
+          <a className="nav-cta" href="#how">
+            設計を見る <ArrowUpRight size={14} />
           </a>
         </div>
       </nav>
