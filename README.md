@@ -1,6 +1,6 @@
 # MedEvidence Lab
 
-[動作デモを開く](https://medevidence-lab-jp.swiftemu69.chatgpt.site/) · [English README](README.en.md)
+[動作デモを開く](https://medevidence-lab-jp.swiftemu69.chatgpt.site/) · [評価結果](EVALUATION.md) · [English README](README.en.md)
 
 PubMedの公開文献を検索し、出典付きの evidence brief を作る医学生向け学習支援プロトタイプです。個別診断ではなく、「問い → 検索式 → 原文抽出 → 出典確認」という検証可能な流れを見せるために作りました。
 
