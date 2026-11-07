@@ -61,3 +61,8 @@ test("Europe PMC results become traceable PubMed records", () => {
   assert.equal(article.url, "https://pubmed.ncbi.nlm.nih.gov/12345/");
   assert.match(article.evidence, /improved outcomes/);
 });
+test("vitamin C and common cold become a PubMed query", () => {
+  const query = buildSearchQuery("ビタミンCは風邪の予防に効果がありますか？");
+  assert.match(query, /vitamin C\[Title\/Abstract\]/);
+  assert.match(query, /common cold\[Title\/Abstract\]/);
+});

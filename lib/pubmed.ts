@@ -19,6 +19,7 @@ const MEDICAL_TERMS: Array<[RegExp, string]> = [
   [/入院/g, "hospitalization"], [/死亡/g, "mortality"],
   [/喘息/g, "asthma"], [/うつ病/g, "depression"],
   [/認知症/g, "dementia"], [/ワクチン/g, "vaccine"],
+  [/ビタミンC|ビタミンＣ/gi, "vitamin C"], [/風邪|かぜ/g, "common cold"],
 ];
 
 const PERSONAL_OR_URGENT = /(私は|わたしは|患者|この症状|何の病気|診断して|薬を飲むべき|救急|胸が痛|息ができ|意識が|自殺|死にたい)/;
