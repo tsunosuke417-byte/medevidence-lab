@@ -1,4 +1,7 @@
 # Dependencies
+# Private application materials containing contact information
+APPLICATION.md
+
 /node_modules/
 /.pnp
 .pnp.*
